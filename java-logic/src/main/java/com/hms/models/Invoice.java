@@ -5,10 +5,12 @@ import java.util.Objects;
 
 /**
  * Represents an Invoice in the hospital management system.
+ * Each invoice is associated with an appointment.
  */
 public class Invoice {
     private int id;
     private Patient patient;
+    private Appointment appointment; // Association with Appointment
     private double amount;
     private LocalDateTime dateIssued;
     private boolean paid;
@@ -16,9 +18,10 @@ public class Invoice {
 
     public Invoice() {}
 
-    public Invoice(int id, Patient patient, double amount, LocalDateTime dateIssued, boolean paid, String description) {
+    public Invoice(int id, Patient patient, Appointment appointment, double amount, LocalDateTime dateIssued, boolean paid, String description) {
         this.id = id;
         this.patient = patient;
+        this.appointment = appointment;
         this.amount = amount;
         this.dateIssued = dateIssued;
         this.paid = paid;
@@ -37,6 +40,13 @@ public class Invoice {
     }
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public double getAmount() {
@@ -72,6 +82,7 @@ public class Invoice {
         return "Invoice{" +
                 "id=" + id +
                 ", patient=" + (patient != null ? patient.getName() : null) +
+                ", appointment=" + (appointment != null ? appointment.getId() : null) +
                 ", amount=" + amount +
                 ", dateIssued=" + dateIssued +
                 ", paid=" + paid +
@@ -88,12 +99,13 @@ public class Invoice {
                 Double.compare(invoice.amount, amount) == 0 &&
                 paid == invoice.paid &&
                 Objects.equals(patient, invoice.patient) &&
+                Objects.equals(appointment, invoice.appointment) &&
                 Objects.equals(dateIssued, invoice.dateIssued) &&
                 Objects.equals(description, invoice.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, patient, amount, dateIssued, paid, description);
+        return Objects.hash(id, patient, appointment, amount, dateIssued, paid, description);
     }
 }
