@@ -1,7 +1,13 @@
 package com.hospital;
 
+import com.hospital.controllers.AdminController;
+import com.hospital.controllers.AppointmentController;
+import com.hospital.controllers.DoctorController;
+import com.hospital.controllers.InvoiceController;
+import com.hospital.controllers.MedicalHistoryController;
+import com.hospital.controllers.PatientController;
+
 import io.javalin.Javalin;
-import com.hospital.controllers.*;
 
 public class App {
     public static void main(String[] args) {
@@ -21,35 +27,35 @@ public class App {
         AdminController adminController = new AdminController();
 
         // Patient routes
-        app.get("/api/patients", patientController::getAllPatients);
-        app.get("/api/patients/:id", patientController::getPatientById);
-        app.post("/api/patients", patientController::registerPatient);
+        app.get("/api/get_patients", patientController::getAllPatients);
+        app.get("/api/get_patients/:id", patientController::getPatientById);
+        app.post("/api/register_patients", patientController::registerPatient);
 
         // Doctor routes
-        app.get("/api/doctors", doctorController::getAllDoctors);
-        app.get("/api/doctors/:id", doctorController::getDoctorById);
-        app.post("/api/doctors", doctorController::registerDoctor);
+        app.get("/api/get_doctors", doctorController::getAllDoctors);
+        app.get("/api/get_doctors/:id", doctorController::getDoctorById);
+        app.post("/api/register_doctors", doctorController::registerDoctor);
 
         // Appointment routes
-        app.get("/api/appointments", appointmentController::getAllAppointments);
-        app.get("/api/appointments/:id", appointmentController::getAppointmentById);
-        app.post("/api/appointments", appointmentController::createAppointment);
-        app.put("/api/appointments/:id", appointmentController::updateAppointmentStatus);
+        app.get("/api/get_appointments", appointmentController::getAllAppointments);
+        app.get("/api/get_appointments/:id", appointmentController::getAppointmentById);
+        app.post("/api/create_appointments", appointmentController::createAppointment);
+        app.put("/api/update_appointments/:id", appointmentController::updateAppointmentStatus);
 
         // Invoice routes
-        app.get("/api/invoices", invoiceController::getAllInvoices);
-        app.get("/api/invoices/:id", invoiceController::getInvoiceById);
-        app.post("/api/invoices", invoiceController::createInvoice);
-        app.put("/api/invoices/:id", invoiceController::updatePaymentStatus);
+        app.get("/api/get_invoices", invoiceController::getAllInvoices);
+        app.get("/api/get_invoices/:id", invoiceController::getInvoiceById);
+        app.post("/api/create_invoices", invoiceController::createInvoice);
+        app.put("/api/update_invoices/:id", invoiceController::updatePaymentStatus);
 
         // Medical history routes
-        app.get("/api/histories", medicalHistoryController::getAllHistories);
-        app.get("/api/histories/patient/:patientId", medicalHistoryController::getHistoriesByPatient);
-        app.post("/api/histories", medicalHistoryController::addHistory);
+        app.get("/api/get_histories", medicalHistoryController::getAllHistories);
+        app.get("/api/get_histories/patient/:patientId", medicalHistoryController::getHistoriesByPatient);
+        app.post("/api/create_histories", medicalHistoryController::addHistory);
 
         // Admin routes
-        app.get("/api/admins", adminController::getAllAdmins);
-        app.get("/api/admins/:userId", adminController::getAdminByUserId);
-        app.post("/api/admins", adminController::registerAdmin);
+        app.get("/api/get_admins", adminController::getAllAdmins);
+        app.get("/api/get_admins/:userId", adminController::getAdminByUserId);
+        app.post("/api/register_admins", adminController::registerAdmin);
     }
 }
