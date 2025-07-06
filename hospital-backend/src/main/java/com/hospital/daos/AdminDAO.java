@@ -1,13 +1,16 @@
 package com.hospital.daos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hospital.models.Admin;
 import com.hospital.models.Department;
 import com.hospital.models.User;
 import com.hospital.utils.DatabaseUtil;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminDAO {
 
@@ -26,13 +29,13 @@ public class AdminDAO {
 
             while (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 Department department = rs.getObject("d.id") != null
@@ -44,12 +47,12 @@ public class AdminDAO {
                         : null;
 
                 Admin admin = new Admin(
-                    rs.getInt("a.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getBoolean("a.is_super_admin"),
-                    rs.getInt("a.department_id"),
+                    rs.getBoolean("is_super_admin"),
+                    rs.getInt("department_id"),
                     department,
-                    rs.getString("a.access_level")
+                    rs.getString("access_level")
                 );
 
                 admins.add(admin);
@@ -79,13 +82,13 @@ public class AdminDAO {
 
             if (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 Department department = rs.getObject("d.id") != null
@@ -97,12 +100,12 @@ public class AdminDAO {
                         : null;
 
                 return new Admin(
-                    rs.getInt("a.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getBoolean("a.is_super_admin"),
-                    rs.getInt("a.department_id"),
+                    rs.getBoolean("is_super_admin"),
+                    rs.getInt("department_id"),
                     department,
-                    rs.getString("a.access_level")
+                    rs.getString("access_level")
                 );
             }
 
@@ -121,3 +124,65 @@ public class AdminDAO {
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, admin.getUser().getId());
+            stmt.setBoolean(2, admin.isSuperAdmin());
+            stmt.setInt(3, admin.getDepartmentId());
+            stmt.setString(4, admin.getAccessLevel());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean updateAdmin(Admin admin) {
+        String query = """
+            UPDATE admins
+            SET is_super_admin = ?, department_id = ?, access_level = ?
+            WHERE user_id = ?
+        """;
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setBoolean(1, admin.isSuperAdmin());
+            stmt.setInt(2, admin.getDepartmentId());
+            stmt.setString(3, admin.getAccessLevel());
+            stmt.setInt(4, admin.getUserId());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean deleteAdmin(int userId) {
+        String query = """
+            DELETE FROM admins
+            WHERE user_id = ?
+        """;
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, userId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+}

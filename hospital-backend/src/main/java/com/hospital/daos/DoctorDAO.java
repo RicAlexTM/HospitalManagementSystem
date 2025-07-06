@@ -29,13 +29,13 @@ public class DoctorDAO {
 
             while (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 Department dept = rs.getObject("dept.id") != null
@@ -47,13 +47,13 @@ public class DoctorDAO {
                         : null;
 
                 Doctor doctor = new Doctor(
-                    rs.getInt("d.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getInt("d.department_id"),
+                    rs.getInt("department_id"),
                     dept,
-                    rs.getString("d.specialization"),
-                    rs.getString("d.license_number"),
-                    rs.getBoolean("d.super_user")
+                    rs.getString("specialization"),
+                    rs.getString("license_number"),
+                    rs.getBoolean("super_user")
                 );
 
                 doctors.add(doctor);
@@ -83,13 +83,13 @@ public class DoctorDAO {
 
             if (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 Department dept = rs.getObject("dept.id") != null
@@ -101,13 +101,13 @@ public class DoctorDAO {
                         : null;
 
                 return new Doctor(
-                    rs.getInt("d.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getInt("d.department_id"),
+                    rs.getInt("department_id"),
                     dept,
-                    rs.getString("d.specialization"),
-                    rs.getString("d.license_number"),
-                    rs.getBoolean("d.super_user")
+                    rs.getString("specialization"),
+                    rs.getString("license_number"),
+                    rs.getBoolean("super_user")
                 );
             }
 

@@ -23,20 +23,20 @@ public class PatientDAO {
 
             while (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 Patient patient = new Patient(
-                    rs.getInt("p.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getDate("p.date_of_birth"),
-                    rs.getString("p.blood_type")
+                    rs.getDate("date_of_birth"),
+                    rs.getString("blood_type")
                 );
 
                 patients.add(patient);
@@ -59,20 +59,20 @@ public class PatientDAO {
 
             if (rs.next()) {
                 User user = new User(
-                    rs.getInt("u.id"),
-                    rs.getString("u.name"),
-                    rs.getString("u.email"),
-                    rs.getString("u.password"),
-                    rs.getString("u.phone"),
-                    rs.getString("u.role"),
-                    rs.getTimestamp("u.created_at")
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    rs.getString("role"),
+                    rs.getTimestamp("created_at")
                 );
 
                 return new Patient(
-                    rs.getInt("p.user_id"),
+                    rs.getInt("user_id"),
                     user,
-                    rs.getDate("p.date_of_birth"),
-                    rs.getString("p.blood_type")
+                    rs.getDate("date_of_birth"),
+                    rs.getString("blood_type")
                 );
             }
 

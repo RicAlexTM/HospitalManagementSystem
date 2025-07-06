@@ -2,10 +2,12 @@ package com.hospital;
 
 import com.hospital.controllers.AdminController;
 import com.hospital.controllers.AppointmentController;
+import com.hospital.controllers.AuthController;
 import com.hospital.controllers.DoctorController;
 import com.hospital.controllers.InvoiceController;
 import com.hospital.controllers.MedicalHistoryController;
 import com.hospital.controllers.PatientController;
+import com.hospital.controllers.UserController;
 
 import io.javalin.Javalin;
 
@@ -25,6 +27,9 @@ public class App {
         InvoiceController invoiceController = new InvoiceController();
         MedicalHistoryController medicalHistoryController = new MedicalHistoryController();
         AdminController adminController = new AdminController();
+        AuthController authController = new AuthController();
+        UserController userController = new UserController();
+        
 
         // Patient routes
         app.get("/api/get_patients", patientController::getAllPatients);
@@ -57,5 +62,12 @@ public class App {
         app.get("/api/get_admins", adminController::getAllAdmins);
         app.get("/api/get_admins/{userId}", adminController::getAdminByUserId);
         app.post("/api/register_admins", adminController::registerAdmin);
+
+        // Auth route
+        app.post("/api/login", authController::login);
+        app.post("/api/register", authController::register);
+        app.get("/api/get_users", userController::getAllUsers);
+        app.get("/api/get_users/{id}", userController::getUserById);
+
     }
 }
