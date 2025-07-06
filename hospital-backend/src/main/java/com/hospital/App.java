@@ -28,34 +28,34 @@ public class App {
 
         // Patient routes
         app.get("/api/get_patients", patientController::getAllPatients);
-        app.get("/api/get_patients/:id", patientController::getPatientById);
+        app.get("/api/get_patients/{id}", patientController::getPatientById);
         app.post("/api/register_patients", patientController::registerPatient);
 
         // Doctor routes
         app.get("/api/get_doctors", doctorController::getAllDoctors);
-        app.get("/api/get_doctors/:id", doctorController::getDoctorById);
+        app.get("/api/get_doctors/{id}", doctorController::getDoctorById);
         app.post("/api/register_doctors", doctorController::registerDoctor);
 
         // Appointment routes
         app.get("/api/get_appointments", appointmentController::getAllAppointments);
-        app.get("/api/get_appointments/:id", appointmentController::getAppointmentById);
+        app.get("/api/get_appointments/{id}", appointmentController::getAppointmentById);
         app.post("/api/create_appointments", appointmentController::createAppointment);
-        app.put("/api/update_appointments/:id", appointmentController::updateAppointmentStatus);
+        app.put("/api/update_appointments/{id}", appointmentController::updateAppointmentStatus);
 
         // Invoice routes
         app.get("/api/get_invoices", invoiceController::getAllInvoices);
-        app.get("/api/get_invoices/:id", invoiceController::getInvoiceById);
+        app.get("/api/get_invoices/{id}", invoiceController::getInvoiceById);
         app.post("/api/create_invoices", invoiceController::createInvoice);
-        app.put("/api/update_invoices/:id", invoiceController::updatePaymentStatus);
+        app.put("/api/update_invoices/{id}", invoiceController::updatePaymentStatus);
 
         // Medical history routes
         app.get("/api/get_histories", medicalHistoryController::getAllHistories);
-        app.get("/api/get_histories/patient/:patientId", medicalHistoryController::getHistoriesByPatient);
+        app.get("/api/get_histories/patient/{patientId}", medicalHistoryController::getHistoriesByPatient);
         app.post("/api/create_histories", medicalHistoryController::addHistory);
 
         // Admin routes
         app.get("/api/get_admins", adminController::getAllAdmins);
-        app.get("/api/get_admins/:userId", adminController::getAdminByUserId);
+        app.get("/api/get_admins/{userId}", adminController::getAdminByUserId);
         app.post("/api/register_admins", adminController::registerAdmin);
     }
 }

@@ -1,0 +1,14 @@
+# Ignore Java class files and build output
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.log
+# IDE and OS files
+.idea/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
