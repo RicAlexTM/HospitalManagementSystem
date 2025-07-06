@@ -1,11 +1,14 @@
 package com.hospital.daos;
 
-import com.hospital.models.Invoice;
-import com.hospital.utils.DatabaseUtil;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hospital.models.Invoice;
+import com.hospital.utils.DatabaseUtil;
 
 public class InvoiceDAO {
 
@@ -18,9 +21,13 @@ public class InvoiceDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                int appointmentId = rs.getInt("appointment_id");
+                // Fetch the Appointment object using AppointmentDAO (assuming it exists)
+                com.hospital.models.Appointment appointment = com.hospital.daos.AppointmentDAO.getAppointmentById(appointmentId);
                 Invoice invoice = new Invoice(
                     rs.getInt("id"),
-                    rs.getInt("appointment_id"),
+                    appointmentId,
+                    appointment,
                     rs.getBigDecimal("amount"),
                     rs.getTimestamp("issued_date"),
                     rs.getString("payment_status"),
@@ -42,21 +49,22 @@ public class InvoiceDAO {
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return new Invoice(
-                    rs.getInt("id"),
-                    rs.getInt("appointment_id"),
-                    rs.getBigDecimal("amount"),
-                    rs.getTimestamp("issued_date"),
-                    rs.getString("payment_status"),
-                    rs.getString("payment_method")
-                );
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int appointmentId = rs.getInt("appointment_id");
+                    com.hospital.models.Appointment appointment = com.hospital.daos.AppointmentDAO.getAppointmentById(appointmentId);
+                    return new Invoice(
+                        rs.getInt("id"),
+                        appointmentId,
+                        appointment,
+                        rs.getBigDecimal("amount"),
+                        rs.getTimestamp("issued_date"),
+                        rs.getString("payment_status"),
+                        rs.getString("payment_method")
+                    );
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
