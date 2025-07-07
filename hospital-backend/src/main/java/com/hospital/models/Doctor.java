@@ -1,50 +1,29 @@
 package com.hospital.models;
+import java.sql.Timestamp;
 
-public class Doctor {
-    private int userId;
-    private User user;
+public class Doctor extends User {
     private int departmentId;
-    private Department department;
     private String specialization;
     private String licenseNumber;
     private boolean superUser;
 
     public Doctor() {}
 
-    public Doctor(int userId, User user, int departmentId, Department department, String specialization, String licenseNumber, boolean superUser) {
-        this.userId = userId;
-        this.user = user;
+    public Doctor(int id, String name, String email, String password, String phone, String role, Timestamp createdAt,
+                  int departmentId, String specialization, String licenseNumber, boolean superUser) {
+        super(id, name, email, password, phone, role, createdAt);
         this.departmentId = departmentId;
-        this.department = department;
         this.specialization = specialization;
         this.licenseNumber = licenseNumber;
         this.superUser = superUser;
     }
 
-    // Getters and Setters...
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // Getters and setters...
     public int getDepartmentId() {
         return departmentId;
     }
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
-    }
-    public Department getDepartment() {
-        return department;
-    }
-    public void setDepartment(Department department) {
-        this.department = department;
     }
     public String getSpecialization() {
         return specialization;
@@ -64,6 +43,19 @@ public class Doctor {
     public void setSuperUser(boolean superUser) {
         this.superUser = superUser;
     }
-    
-
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phone='" + getPhone() + '\'' +
+                ", departmentId=" + departmentId +
+                ", specialization='" + specialization + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", superUser=" + superUser +
+                ", role='" + getRole() + '\'' +
+                ", createdAt=" + getCreatedAt() +
+                '}';
+    }
 }

@@ -1,6 +1,15 @@
 package com.hospital.models;
 
 import java.sql.Timestamp;
+import com.hospital.models.Appointment;
+import com.hospital.models.Patient;
+import com.hospital.models.Doctor;
+import com.hospital.models.User;
+/**
+ * The MedicalRecord class represents a medical record associated with an appointment.
+ * It contains details about the patient, doctor, diagnosis, treatment, and other relevant information.
+ */
+
 
 public class MedicalRecord {
     private int id;
@@ -106,6 +115,24 @@ public class MedicalRecord {
     }
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalRecord{" +
+                "id=" + id +
+                ", appointmentId=" + appointmentId +
+                ", appointment=" + (appointment != null ? appointment.toString() : "N/A") +
+                ", patientId=" + patientId +
+                ", patient=" + (patient != null ? patient.toString() : "N/A") +
+                ", doctorId=" + doctorId +
+                ", doctor=" + (doctor != null ? doctor.toString() : "N/A") +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", prescription='" + prescription + '\'' +
+                ", notes='" + notes + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
     
 }

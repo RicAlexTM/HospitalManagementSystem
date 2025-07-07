@@ -2,14 +2,14 @@ package com.hospital.models;
 
 import java.sql.Timestamp;
 
-public class User {
-    private int id;
-    private String name;
-    private String email;
-    private String password;
-    private String phone;
-    private String role;
-    private Timestamp createdAt;
+public abstract class User {
+    protected int id;
+    protected String name;
+    protected String email;
+    protected String password;
+    protected String phone;
+    protected String role;
+    protected Timestamp createdAt;
 
     public User() {}
 
@@ -23,10 +23,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters...
+    // Getters and setters...
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -66,6 +67,4 @@ public class User {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
-    
 }

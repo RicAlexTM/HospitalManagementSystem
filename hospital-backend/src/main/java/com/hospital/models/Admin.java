@@ -1,71 +1,59 @@
 package com.hospital.models;
+import com.hospital.models.User;
+import java.sql.Timestamp;
+import java.sql.Date;
+/**
+ * Represents an Admin user in the hospital management system.
+ * Extends the User class to include additional properties specific to Admins.
+ */
 
-public class Admin {
-    private int userId;
-    private User user;
+public class Admin extends User {
     private boolean isSuperAdmin;
     private Integer departmentId; // nullable
-    private Department department;
     private String accessLevel;
 
     public Admin() {}
 
-    public Admin(int userId, User user, boolean isSuperAdmin, Integer departmentId, Department department, String accessLevel) {
-        this.userId = userId;
-        this.user = user;
+    public Admin(int id, String name, String email, String password, String phone, String role, Timestamp createdAt,
+                 boolean isSuperAdmin, Integer departmentId, String accessLevel) {
+        super(id, name, email, password, phone, role, createdAt);
         this.isSuperAdmin = isSuperAdmin;
         this.departmentId = departmentId;
-        this.department = department;
         this.accessLevel = accessLevel;
     }
 
-    // Getters and Setters
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    // Getters and setters...
     public boolean isSuperAdmin() {
         return isSuperAdmin;
     }
-
     public void setSuperAdmin(boolean superAdmin) {
         isSuperAdmin = superAdmin;
     }
-
     public Integer getDepartmentId() {
         return departmentId;
     }
-
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
     public String getAccessLevel() {
         return accessLevel;
     }
-
     public void setAccessLevel(String accessLevel) {
         this.accessLevel = accessLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phone='" + getPhone() + '\'' +
+                ", isSuperAdmin=" + isSuperAdmin +
+                ", departmentId=" + departmentId +
+                ", accessLevel='" + accessLevel + '\'' +
+                ", role='" + getRole() + '\'' +
+                ", createdAt=" + getCreatedAt() +
+                '}';
     }
 }
