@@ -1,21 +1,16 @@
 package com.hospital.services;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.hospital.daos.AdminDAO;
 import com.hospital.models.Admin;
 
-public class AdminService {
-
-    public List<Admin> getAllAdmins() {
-        return AdminDAO.getAllAdmins();
-    }
-
-    public Admin getAdminByUserId(int userId) {
-        return AdminDAO.getAdminByUserId(userId);
-    }
-
-    public boolean registerAdmin(Admin admin) {
-        return AdminDAO.createAdmin(admin);
-    }
+public interface AdminService {
+    List<Admin> getAllAdmins();
+    Optional<Admin> getAdminById(int id);
+    boolean createAdmin(Admin admin);
+    boolean updateAdmin(Admin admin);
+    boolean deleteAdmin(int id);
+    List<Admin> getSuperAdmins();
+    List<Admin> getAdminsByDepartment(int deptId);
 }

@@ -1,25 +1,17 @@
 package com.hospital.services;
 
-import com.hospital.daos.InvoiceDAO;
+
 import com.hospital.models.Invoice;
+import java.util.Optional;
 
 import java.util.List;
 
-public class InvoiceService {
-
-    public List<Invoice> getAllInvoices() {
-        return InvoiceDAO.getAllInvoices();
-    }
-
-    public Invoice getInvoiceById(int id) {
-        return InvoiceDAO.getInvoiceById(id);
-    }
-
-    public boolean generateInvoice(Invoice invoice) {
-        return InvoiceDAO.createInvoice(invoice);
-    }
-
-    public boolean updatePaymentStatus(int invoiceId, String newStatus) {
-        return InvoiceDAO.updatePaymentStatus(invoiceId, newStatus);
-    }
+public interface InvoiceService {
+    List<Invoice> findAll();
+    Optional<Invoice> findById(int id);
+    boolean create(Invoice invoice);
+    boolean update(Invoice invoice);
+    boolean delete(int id);
+    List<Invoice> findByPatientId(int patientId);
+    boolean updatePaymentStatus(int id, String status);
 }
