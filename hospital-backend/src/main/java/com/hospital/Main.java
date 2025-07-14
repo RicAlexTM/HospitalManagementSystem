@@ -1,7 +1,5 @@
 package com.hospital;
 
-import io.javalin.Javalin;
-
 import com.hospital.controllers.AdminController;
 import com.hospital.controllers.AppointmentController;
 import com.hospital.controllers.DepartmentController;
@@ -11,6 +9,8 @@ import com.hospital.controllers.MedicalHistoryController;
 import com.hospital.controllers.MedicalRecordController;
 import com.hospital.controllers.PatientController;
 import com.hospital.controllers.UserController;
+
+import io.javalin.Javalin;
 
 
 public class Main {

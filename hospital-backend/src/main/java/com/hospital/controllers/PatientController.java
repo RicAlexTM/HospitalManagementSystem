@@ -5,7 +5,6 @@ import java.util.List;
 import com.hospital.daos.PatientDAO;
 import com.hospital.daos.impl.PatientDAOImpl;
 import com.hospital.models.Patient;
-
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
